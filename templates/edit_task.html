@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h1 class="mt-3">Edit Task :: {{project.name}}</h1>
+
+<form action="{{url_for('update_task')}}" method="POST">
+    <div class="form-group row">
+        <div class="col-1"></div>
+        <input type="hidden" name="db_task_id" value="{{task.id}}">
+        <input type="hidden" name="db_project_id" value="{{project.id}}">
+        <input type="text" name="task_name" value="{{task.description}}" class="form-control col-6">
+        <button class="btn btn-primary btn-sm ml-2">Update</button>
+        <a href="{{url_for('tasks',db_project_id=project.id)}}" class="btn btn-secondary btn-sm ml-2">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}
+

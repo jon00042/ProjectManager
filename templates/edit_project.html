@@ -8,7 +8,7 @@
 <form action="{{url_for('update_project')}}" method="POST">
     <div class="form-group row">
         <div class="col-1"></div>
-        <input type="hidden" name="project_id" value="{{project.id}}">
+        <input type="hidden" name="db_project_id" value="{{project.id}}">
         <input type="text" value="{{project.name}}" name="project_name" class="form-control col-6">
         <button class="btn btn-primary btn-sm ml-2">Update</button>
         <a href="{{url_for('index')}}" class="btn btn-secondary btn-sm ml-2">Cancel</a>

@@ -24,13 +24,13 @@
 
 <div class="row my-1 border-top py-2 mx-1">
     <div class="col-1">
-        <a href="" class="btn btn-primary btn-sm">Tasks</a>
+        <a href="{{url_for('tasks',db_project_id=project.id)}}" class="btn btn-primary btn-sm">Tasks</a>
     </div>
     <div class="col-5">{{project.name}}</div>
     <div class="col-3">{{project.created_at}}</div>
     <div class="col-3">
-        <a href="{{url_for('edit_project',project_id=project.id)}}" class="btn btn-warning btn-sm">Edit</a>
-        <a href="{{url_for('delete_project',project_id=project.id)}}" class="btn btn-danger btn-sm">Delete</a>
+        <a href="{{url_for('edit_project',db_project_id=project.id)}}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{{url_for('delete_project',db_project_id=project.id)}}" class="btn btn-danger btn-sm">Delete</a>
     </div>
 </div>
 

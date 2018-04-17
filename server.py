@@ -15,20 +15,49 @@ def create_project():
     db_create_project(request.form['project_name'])
     return redirect(url_for('index'))
 
-@app.route('/edit_project/<project_id>')
-def edit_project(project_id):
-    db_project = db_get_project(project_id)
+@app.route('/edit_project/<db_project_id>')
+def edit_project(db_project_id):
+    db_project = db_get_project(db_project_id)
     return render_template('edit_project.html', project=db_project)
 
-@app.route('/delete_project/<project_id>')
-def delete_project(project_id):
-    db_delete_project(project_id)
+@app.route('/delete_project/<db_project_id>')
+def delete_project(db_project_id):
+    db_delete_project(db_project_id)
     return redirect(url_for('index'))
 
 @app.route('/update_project', methods=['POST'])
 def update_project():
-    db_update_project(request.form['project_id'], request.form['project_name'])
+    db_update_project(request.form['db_project_id'], request.form['project_name'])
     return redirect(url_for('index'))
+
+@app.route('/tasks/<db_project_id>')
+def tasks(db_project_id):
+    db_project = db_get_project(db_project_id)
+    return render_template('tasks.html', project=db_project)
+
+@app.route('/create_task', methods=['POST'])
+def create_task():
+    db_project = db_get_project(request.form['db_project_id'])
+    db_create_task(db_project.id, request.form['task_name'])
+    return redirect(url_for('tasks', db_project_id=db_project.id))
+
+@app.route('/edit_task/<db_task_id>/<db_project_id>')
+def edit_task(db_task_id, db_project_id):
+    db_task = db_get_task(db_task_id)
+    db_project = db_get_project(db_project_id)
+    return render_template('edit_task.html', task=db_task, project=db_project)
+
+@app.route('/delete_task/<db_task_id>/<db_project_id>')
+def delete_task(db_task_id, db_project_id):
+    db_delete_task(db_task_id)
+    db_project = db_get_project(db_project_id)
+    return render_template('tasks.html', project=db_project)
+
+@app.route('/update_task/', methods=['POST'])
+def update_task():
+    db_update_task(request.form['db_task_id'], request.form['task_name'])
+    db_project = db_get_project(request.form['db_project_id'])
+    return render_template('tasks.html', project=db_project)
 
 app.run(debug=True)
 
